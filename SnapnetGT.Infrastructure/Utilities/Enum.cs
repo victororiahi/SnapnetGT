@@ -14,5 +14,12 @@ namespace SnapnetGT.Infrastructure.Utilities
             Name,
             Description
         }
+
+        public enum Status
+        {
+            Pending,
+            Processing,
+            Delivered
+        }
     }
 }
