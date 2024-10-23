@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace SnapnetGT.Data.Entities
 {
     public class User : IdentityUser<int>
