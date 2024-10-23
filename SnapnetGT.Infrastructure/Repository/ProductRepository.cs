@@ -77,14 +77,27 @@ namespace SnapnetGT.Infrastructure.Repository
             return results;
         }
 
-        public Task<Product> GetProduct(int id)
+        public async Task<Product> GetProduct(int id)
         {
-            throw new NotImplementedException();
+            var product = await _dbContext.Set<Product>().FirstOrDefaultAsync(x => x.Id == id);
+            if (product == null) throw new Exception("Product not found");
+            return product;
         }
 
-        public Task<Product> UpdateProduct(int id, ProductDTO product)
+        public async Task<Product> UpdateProduct(int id, ProductDTO product)
         {
-            throw new NotImplementedException();
+            var entity = await _dbContext.Set<Product>().FirstOrDefaultAsync(x => x.Id == id);
+            if (entity == null) throw new Exception("Product not found");
+
+            entity.Name = product.Name ?? entity.Name;
+            entity.Description = product.Description ?? entity.Description;
+            entity.Price = product.Price > 0 ? product.Price:entity.Price;
+            entity.Quantity = product.Quantity > 0 ? product.Quantity : entity.Quantity;
+
+
+            _dbContext.Update(entity);
+            await _dbContext.SaveChangesAsync();
+            return entity;
         }
     }
 
